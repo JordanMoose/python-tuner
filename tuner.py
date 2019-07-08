@@ -41,16 +41,28 @@ NOTE_NAMES = 'C C# D D# E F F# G G# A A# B'.split()
 # These three functions are based upon this very useful webpage:
 # https://newt.phys.unsw.edu.au/jw/notes.html
 
-def freq_to_number(f): return 69 + 12*np.log2(f/440.0)
-def number_to_freq(n): return 440 * 2.0**((n-69)/12.0)
-def note_name(n): return NOTE_NAMES[n % 12] + str(n/12 - 1)
+
+def freq_to_number(f):
+    return 69 + 12*np.log2(f/440.0)
+
+
+def number_to_freq(n):
+    return 440 * 2.0**((n-69)/12.0)
+
+
+def note_name(n):
+    return NOTE_NAMES[n % 12] + str(n/12 - 1)
+
 
 ######################################################################
 # Ok, ready to go now.
 
 # Get min/max index within FFT of notes we care about.
 # See docs for numpy.rfftfreq()
-def note_to_fftbin(n): return number_to_freq(n)/FREQ_STEP
+def note_to_fftbin(n):
+    return number_to_freq(n)/FREQ_STEP
+
+
 imin = max(0, int(np.floor(note_to_fftbin(NOTE_MIN-1))))
 imax = min(SAMPLES_PER_FFT, int(np.ceil(note_to_fftbin(NOTE_MAX+1))))
 
